@@ -19,24 +19,29 @@
             x:Name="AppTitleBar"
             Grid.Row="0"
             Height="32" />
-        <Button
+        <StackPanel
             Grid.Row="1"
-            Width="45"
-            Height="45"
             Margin="10"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Click="AboutButton_Click">
-            <FontIcon Glyph="&#xE946;" />
-        </Button>
+            Orientation="Horizontal">
+            <Button
+                Width="45"
+                Height="45"
+                Margin="2"
+                Click="ToolbarButton_Click"
+                Tag="About">
+                <FontIcon Glyph="&#xE946;" />
+            </Button>
+        </StackPanel>
         <ToggleButton
-            x:Name="TorchToggleBtn"
             Grid.Row="1"
             Width="64"
             Height="64"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Click="TorchToggleBtn_Click">
+            Click="TorchToggleBtn_Click"
+            IsEnabled="{x:Bind LampAvailability, Mode=OneWay}">
             <FontIcon FontSize="30" Glyph="&#xEA80;" />
         </ToggleButton>
     </Grid>

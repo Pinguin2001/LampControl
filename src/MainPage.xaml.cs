@@ -8,6 +8,7 @@ namespace LampControl
 {
     public sealed partial class MainPage : Page
     {
+        public bool LampAvailability { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
@@ -17,11 +18,10 @@ namespace LampControl
 
         private async void InitializeApp()
         {
-            bool LampPresence = await LampHelper.TryGetDefaultLamp();
-            if (!LampPresence)
+            LampAvailability = await LampHelper.TryGetDefaultLamp();
+            if (!LampAvailability)
             {
                 await DialogHelper.ShowDialog("Error", "Unable to get the default lamp");
-                TorchToggleBtn.IsEnabled = false;
             }
         }
 
@@ -30,10 +30,15 @@ namespace LampControl
             LampHelper.ToggleDefaultLamp();
         }
 
-        private async void AboutButton_Click(object sender, RoutedEventArgs e)
+        private async void ToolbarButton_Click(object sender, RoutedEventArgs e)
         {
-            AboutContentDialog dialog = new AboutContentDialog();
-            await dialog.ShowAsync();
+            switch((sender as Button).Tag)
+            {
+                case "About":
+                    AboutContentDialog AboutDialog = new AboutContentDialog();
+                    await AboutDialog.ShowAsync();
+                    break;
+            }
         }
     }
 }
